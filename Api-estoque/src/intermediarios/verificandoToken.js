@@ -12,11 +12,12 @@ async function vericandoToken(req, res, next) {
   try {
     const { id } = jwt.verify(token, process.env.SENHA_JWT);
 
-    const existeEmpresa = await knex("empresas").where({ id: id }).count();
+    const existeEmpresa = await knex("empresas").where({ id: id });
 
-    if (!existeEmpresa[0].count)
+    if (!existeEmpresa.length)
       return res.status(401).json({ message: "Não autorizado!" });
-
+    const { senha: _, ...dadosEmpresa } = existeEmpresa[0];
+    req.empresa = dadosEmpresa;
     next();
   } catch (error) {
     return res.status(500).json({ message: "Erro interno no servidor!" });

@@ -16,11 +16,13 @@
    	id_empresa serial references empresas(id)
  )
 
- create table funcionarios (
+  create table funcionarios (
    	id serial primary key,
    	nome_funcionario text not null,
-   	cargo text not null,
+   	senioridade text not null,
    	perfil_imagem text,
-   numero_rg text not null,
+   	numero_rg text not null,
    	id_empresa serial references empresas(id)
+   	email text unique  not null,
+   	telefone text  not null
  )

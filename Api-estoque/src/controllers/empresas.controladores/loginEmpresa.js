@@ -25,8 +25,7 @@ async function loginDoUsuario(req, res) {
 
     return res.json({ dadosEmpresa, token });
   } catch (error) {
-    res.status(400).json(error);
-    return res.status(400).json({ message: "error interno no servidor! " });
+    return res.status(500).json({ message: "error interno no servidor! " });
   }
 }
 

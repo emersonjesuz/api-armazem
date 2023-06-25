@@ -21,7 +21,7 @@ async function cadastrarEmpresa(req, res) {
   } catch (error) {
     if (error.constraint === "usuarios_email_key")
       return res.status(400).json({ message: "empresa ja existe !" });
-    return res.status(400).json({ message: "error interno no servidor!" });
+    return res.status(500).json({ message: "error interno no servidor!" });
   }
 }
 
