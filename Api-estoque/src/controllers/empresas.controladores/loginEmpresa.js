@@ -7,7 +7,7 @@ async function loginDoUsuario(req, res) {
   const { email, senha } = req.body;
   if (!email || !senha)
     return res.status(400).json({ message: "preencha todos os campos" });
-
+  console.log(process.env);
   try {
     const existeEmpresa = await knex("empresas").where({ email: email });
 
@@ -25,6 +25,7 @@ async function loginDoUsuario(req, res) {
 
     return res.json({ dadosEmpresa, token });
   } catch (error) {
+    console.log(error);
     return res.status(500).json({ message: "error interno no servidor! " });
   }
 }

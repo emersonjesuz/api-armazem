@@ -36,7 +36,7 @@ async function cadastrarFuncionarios(req, res) {
   } catch (error) {
     if (error.constraint === "funcionarios_email_key")
       return res.status(400).json({ message: "funcionario ja existe!" });
-    return res.status(500).json({ message: "erro interno no servidor!" });
+    return res.status(500).json({ message: "Erro interno no servidor!" });
   }
 }
 
