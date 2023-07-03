@@ -1,8 +1,12 @@
 const express = require("express");
-const rotas = require("./rotas/rotas");
+const rotasEmpresa = require("./rotas/empresa/empresa.rotas");
+const rotasFuncionario = require("./rotas/funcionario/funcionario.rotas");
+
 const app = express();
 
 app.use(express.json());
-app.use(rotas);
 
-app.listen(3000);
+app.use(rotasEmpresa);
+app.use(rotasFuncionario);
+
+app.listen(process.env.PORT);

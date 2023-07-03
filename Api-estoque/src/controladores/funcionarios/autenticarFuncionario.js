@@ -1,7 +1,7 @@
 const knex = require("../../database/conexao.db");
 const bcrypt = require("bcrypt");
 
-async function cadastrarSenhaDoFuncionario(req, res) {
+async function autenticarFuncionario(req, res) {
   const { nomeFuncionario, email, numeroRg, senha } = req.body;
 
   if (!nomeFuncionario || !email || !numeroRg || !senha)
@@ -25,7 +25,7 @@ async function cadastrarSenhaDoFuncionario(req, res) {
     const senhaCriptografada = await bcrypt.hash(senha, 10);
 
     await knex("funcionarios")
-      .update({ senha: senhaCriptografada })
+      .update({ senha: senhaCriptografada, efetivado: true })
       .where({ id: funcionario[0].id });
 
     res.json({ message: "Funcionario autenticado" });
@@ -34,4 +34,4 @@ async function cadastrarSenhaDoFuncionario(req, res) {
   }
 }
 
-module.exports = cadastrarSenhaDoFuncionario;
+module.exports = autenticarFuncionario;

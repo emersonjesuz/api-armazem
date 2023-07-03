@@ -1,5 +1,6 @@
 const knex = require("../../database/conexao.db");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 async function loginFuncionario(req, res) {
   const { email, senha } = req.body;
@@ -10,7 +11,7 @@ async function loginFuncionario(req, res) {
     if (!funcionario.length)
       return res.status(404).json({ message: "funcionario não encontrado" });
 
-    if (!funcionario[0].senha)
+    if (!funcionario[0].senha || !funcionario[0].efetivado)
       return res
         .status(401)
         .json({ message: "funcionario não estar autenticado!" });
@@ -20,10 +21,19 @@ async function loginFuncionario(req, res) {
     if (!senhaConfere)
       res.status(401).json({ message: "email ou senha esta incorreta!" });
 
+    const token = await jwt.sign(
+      { id: funcionario[0].id },
+      process.env.SENHA_JWT_FUNCIONARIO,
+      {
+        expiresIn: "8h",
+      }
+    );
+
     const { senha: _, ...dadosFuncionario } = funcionario[0];
-    req.funcionario = dadosFuncionario;
-    res.json(dadosFuncionario);
+
+    res.json({ funcionario: dadosFuncionario, token });
   } catch (error) {
+    console.log(error);
     return res.status(500).json({ message: "erro interno no servidor!" });
   }
 }
