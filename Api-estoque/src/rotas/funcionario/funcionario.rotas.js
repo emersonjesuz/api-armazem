@@ -6,7 +6,7 @@ const verificandoTokenFuncionario = require("../../intermediarios/verificandoTok
 const rotasFuncionario = express();
 
 rotasFuncionario.post("/funcionario/autenticar", autenticarFuncionario);
-
+rotasFuncionario.post("/funcionario/login", loginFuncionario);
 // rotasFuncionario.use(verificandoTokenFuncionario);
 
 module.exports = rotasFuncionario;

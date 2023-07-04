@@ -18,7 +18,7 @@ async function loginDaEmpresa(req, res) {
       return res.status(400).json({ message: "email ou senha incorreto!" });
 
     const token = jwt.sign(
-      { id: existeEmpresa[0].id },
+      { id: existeEmpresa[0].id, status: "empresa" },
       process.env.SENHA_JWT_EMPRESA,
       {
         expiresIn: "8h",

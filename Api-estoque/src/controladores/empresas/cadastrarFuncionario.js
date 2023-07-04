@@ -2,7 +2,10 @@ const knex = require("../../database/conexao.db");
 
 async function cadastrarFuncionarios(req, res) {
   const { nomeFuncionario, email, telefone, imagemPerfil, numeroRg } = req.body;
-  const { id: empresaId } = req.empresa;
+  const { id: empresaId, status } = req.cliente;
+
+  if (status !== "empresa")
+    return res.status(401).json({ message: "Não Autorizado!" });
 
   if (!nomeFuncionario || !email || !telefone || !numeroRg)
     return res.status(400).json({ message: "preencha  todos os campos!" });

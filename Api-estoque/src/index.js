@@ -1,14 +1,14 @@
 const express = require("express");
-const loginFuncionario = require("./controladores/funcionarios/loginFunciocario");
 const rotasEmpresa = require("./rotas/empresa/empresa.rotas");
 const rotasFuncionario = require("./rotas/funcionario/funcionario.rotas");
+const rotasProdutos = require("./rotas/produtos/produtos.rotas");
 
 const app = express();
 
 app.use(express.json());
-app.post("/funcionario/login", loginFuncionario);
 
-app.use(rotasEmpresa);
 app.use(rotasFuncionario);
+app.use(rotasEmpresa);
+app.use(rotasProdutos);
 
 app.listen(process.env.PORT);

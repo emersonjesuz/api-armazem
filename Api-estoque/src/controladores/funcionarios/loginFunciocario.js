@@ -22,7 +22,7 @@ async function loginFuncionario(req, res) {
       res.status(401).json({ message: "email ou senha esta incorreta!" });
 
     const token = jwt.sign(
-      { id: funcionario[0].id },
+      { id: funcionario[0].id, status: "funcionario" },
       process.env.SENHA_JWT_EMPRESA,
       {
         expiresIn: "8h",
