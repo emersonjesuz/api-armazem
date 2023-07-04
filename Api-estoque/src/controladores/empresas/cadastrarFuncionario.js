@@ -5,7 +5,7 @@ async function cadastrarFuncionarios(req, res) {
   const { id: empresaId } = req.empresa;
 
   if (!nomeFuncionario || !email || !telefone || !numeroRg)
-    return res.status(400).json({ message: "preencha todos os campos!" });
+    return res.status(400).json({ message: "preencha  todos os campos!" });
 
   try {
     const dadosFuncionario = {

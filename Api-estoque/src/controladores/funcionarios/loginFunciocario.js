@@ -21,9 +21,9 @@ async function loginFuncionario(req, res) {
     if (!senhaConfere)
       res.status(401).json({ message: "email ou senha esta incorreta!" });
 
-    const token = await jwt.sign(
+    const token = jwt.sign(
       { id: funcionario[0].id },
-      process.env.SENHA_JWT_FUNCIONARIO,
+      process.env.SENHA_JWT_EMPRESA,
       {
         expiresIn: "8h",
       }

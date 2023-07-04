@@ -7,11 +7,11 @@ async function vericandoTokenEmpresa(req, res, next) {
 
   if (!authorization)
     return res.status(401).json({ message: "Não autorizado!" });
-  // verificar maneira de mandar dois tokens
-  const token = authorization.split(" ")[1];
-  console.log(token);
+
+  const token = authorization.split(" ")[1].split("//")[0];
+
   try {
-    const { id } = jwt.verify(token, process.env.SENHA_JWT);
+    const { id } = jwt.verify(token, process.env.SENHA_JWT_EMPRESA);
 
     const existeEmpresa = await knex("empresas").where({ id: id });
 
