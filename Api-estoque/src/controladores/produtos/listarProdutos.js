@@ -1,10 +1,7 @@
 const knex = require("../../database/conexao.db");
 
 async function listarProdutos(req, res) {
-  const { id: empresaId, status } = req.cliente;
-
-  // if (status !== "empresa")
-  //   return res.status(401).json({ message: "Não Autorizado!" });
+  const { id: empresaId } = req.cliente;
 
   try {
     const produtosEmEstoque = await knex("produtos")

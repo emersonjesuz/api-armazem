@@ -1,4 +1,5 @@
 const knex = require("../../database/conexao.db");
+const registrandoUmaAcao = require("../../registros/registros");
 
 async function adicionarProdutos(req, res) {
   const { nomeProduto, descricao, unidades, imagem } = req.body;
@@ -24,19 +25,23 @@ async function adicionarProdutos(req, res) {
     if (!produto)
       return res.status(500).json({ message: "erro interno no servidor!" });
 
-    await knex("registros").insert({
-      id_empresa: cliente.id_empresa,
-      id_funcionario: cliente.id,
-      nome_funcionario: cliente.nome_funcionario,
-      id_produto: produto[0].id,
-      nome_produto: produto[0].nome_produto,
-      tipo: "adicionar",
-      unidades: produto[0].unidades,
-    });
+    const registro = await registrandoUmaAcao(
+      cliente.id_empresa,
+      cliente.id,
+      cliente.nome_funcionario,
+      produto[0].id,
+      produto[0].nome_produto,
+      "adicionar",
+      produto[0].unidades
+    );
+
+    if (!registro)
+      return res.status(500).json({ message: "erro  interno no servidor!" });
 
     res.json("produto adicionado!");
   } catch (error) {
-    return res.status(500).json({ message: "erro interno no servidor!" });
+    console.log(error);
+    return res.status(500).json({ message: "erro  interno no servidor!" });
   }
 }
 
