@@ -33,7 +33,6 @@ async function loginFuncionario(req, res) {
 
     res.json({ funcionario: dadosFuncionario, token });
   } catch (error) {
-    console.log(error);
     return res.status(500).json({ message: "erro interno no servidor!" });
   }
 }

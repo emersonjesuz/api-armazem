@@ -17,7 +17,7 @@ async function cadastrarEmpresa(req, res) {
       senha: senhaCriptografada,
     });
 
-    res.json({ message: `nova empresa criada` });
+    res.json(" nova empresa criada");
   } catch (error) {
     if (error.constraint === "usuarios_email_key")
       return res.status(400).json({ message: "empresa ja existe !" });

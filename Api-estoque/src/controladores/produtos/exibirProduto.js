@@ -10,7 +10,7 @@ async function exibirProduto(req, res) {
       .select("id", "nome_produto", "descricao", "unidades", "imagem");
     return res.json(produto);
   } catch (error) {
-    return res.status(500).json({ message: "Erro 1 interno do servidor!" });
+    return res.status(500).json({ message: "Erro  interno do servidor!" });
   }
 }
 

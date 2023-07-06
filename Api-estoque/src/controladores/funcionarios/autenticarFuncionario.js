@@ -28,7 +28,7 @@ async function autenticarFuncionario(req, res) {
       .update({ senha: senhaCriptografada, efetivado: true })
       .where({ id: funcionario[0].id });
 
-    res.json({ message: "Funcionario autenticado" });
+    res.json("Funcionario autenticado");
   } catch (error) {
     res.status(500).json({ message: "Erro interno do servidor!" });
   }

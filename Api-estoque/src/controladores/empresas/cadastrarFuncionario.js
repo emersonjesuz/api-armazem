@@ -22,7 +22,7 @@ async function cadastrarFuncionarios(req, res) {
     const cadastrar = await knex("funcionarios").insert(dadosFuncionario);
     if (!cadastrar)
       return res.status(401).json({ message: "funcionario não cadastrado!" });
-    res.json({ message: "novo funcionario adicionado!" });
+    res.json("novo funcionario adicionado!");
   } catch (error) {
     if (error.constraint === "funcionarios_email_key")
       return res.status(400).json({ message: "funcionario ja existe!" });

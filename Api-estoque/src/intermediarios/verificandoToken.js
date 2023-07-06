@@ -27,9 +27,7 @@ async function vericandoToken(req, res, next) {
 
     next();
   } catch (error) {
-    if (error.message === "invalid token")
-      return res.status(401).json({ message: "Não autorizado!" });
-    return res.status(500).json({ message: "Erro interno no servidor!" });
+    return res.status(401).json({ message: "Não autorizado!" });
   }
 }
 
