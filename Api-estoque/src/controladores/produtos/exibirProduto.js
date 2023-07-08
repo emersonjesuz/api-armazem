@@ -6,7 +6,7 @@ async function exibirProduto(req, res) {
 
   try {
     const produto = await knex("produtos")
-      .where({ id })
+      .where({ id, deletado: false })
       .select("id", "nome_produto", "descricao", "unidades", "imagem");
     return res.json(produto);
   } catch (error) {

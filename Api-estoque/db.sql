@@ -13,7 +13,8 @@
    	descricao text,
   	unidades serial not null, 
    	imagem text,
-   	id_empresa serial references empresas(id)
+   	id_empresa serial references empresas(id),
+    deletado  BOOLEAN DEFAULT FALSE
  )
 
   create table funcionarios (

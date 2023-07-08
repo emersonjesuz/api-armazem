@@ -1,4 +1,5 @@
 const knex = require("../../database/conexao.db");
+const registrandoUmaAcao = require("../../registros/registros");
 
 async function deletarProduto(req, res) {
   const { id } = req.params;
@@ -21,9 +22,12 @@ async function deletarProduto(req, res) {
         .json({ message: "o produto ainda possuir unidades" });
 
     const deletandoProduto = await knex("produtos")
-      .del()
-      .where({ id, unidades: 0 })
+      .update({ deletado: true })
+      .where({ id, unidades: 0, deletado: false })
       .returning(["id", "unidades", "nome_produto"]);
+
+    if (!deletandoProduto.length)
+      return res.status(404).json({ message: "Produto não encontrado!" });
 
     const registro = await registrandoUmaAcao(
       cliente.id_empresa,
@@ -34,13 +38,13 @@ async function deletarProduto(req, res) {
       "deletar",
       deletandoProduto[0].unidades
     );
-    //  não deleta por conta da referencia
 
     if (!registro)
-      return res.status(500).json({ message: "erro  interno no servidor!" });
+      return res.status(400).json({ message: " error ao registrar a ação!" });
 
     res.json("produto deletado!");
   } catch (error) {
+    console.log(error);
     return res.status(500).json({ message: "erro  interno no servidor!" });
   }
 }

@@ -2,17 +2,22 @@ const knex = require("../../database/conexao.db");
 
 async function listarProdutos(req, res) {
   const { pagina } = req.query;
-  const { id: empresaId } = req.cliente;
+  const { status, ...cliente } = req.cliente;
 
+  let idCliente = cliente.id_empresa;
+  if (status !== "funcionario") {
+    idCliente = cliente.id;
+  }
   try {
-    if (!pagina) return res.status(400).json({ messege: "informe a pagina" });
+    const paginacao = pagina ? pagina : 0;
     const produtosEmEstoque = await knex("produtos")
       .where({
-        id_empresa: empresaId,
+        id_empresa: idCliente,
+        deletado: false,
       })
       .select("id", "nome_produto", "descricao", "unidades", "imagem")
       .limit(10)
-      .offset(pagina);
+      .offset(paginacao);
 
     return res.json(produtosEmEstoque);
   } catch (error) {

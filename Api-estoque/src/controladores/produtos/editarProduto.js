@@ -38,7 +38,7 @@ async function editarProduto(req, res) {
     );
 
     if (!registro)
-      return res.status(500).json({ message: "erro interno no servidor!" });
+      return res.status(400).json({ message: " error ao registrar a ação!" });
 
     res.json("produto atualizado!");
   } catch (error) {
